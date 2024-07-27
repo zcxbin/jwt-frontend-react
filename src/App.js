@@ -3,6 +3,7 @@ import Login from './components/Login/login'
 import Nav from './components/Navigation/nav'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Register from './components/Register/register'
 function App () {
   return (
     <Router>
@@ -14,6 +15,9 @@ function App () {
           <Route path='/contact'>contact</Route>
           <Route path='/login'>
             <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
           </Route>
           <Route path='/' exact>
             Home

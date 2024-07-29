@@ -2,6 +2,9 @@ import "./register.scss";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -15,6 +18,7 @@ const Register = (props) => {
   };
 
   const handleRegister = () => {
+    let check = isValid();
     let userData = {
       email,
       phone,
@@ -23,6 +27,33 @@ const Register = (props) => {
     }
     console.log(">>> check userData: ", userData)
   };
+
+  const isValid = () => {
+    let regx = /\S+@\S+\.\S+/;
+    if (!email) {
+      toast.error("Email is required!");
+      return false;
+    }
+    if (!regx.test(email)) {
+      toast.error("Please enter a valid email address!");
+      return false;
+    }
+    if (!phone) {
+      toast.error("Phone is required!");
+      return false;
+    }
+    if (!password) {
+      toast.error("Password is required!");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password does not match!");
+      return false;
+    }
+
+    return true;
+  }
+
   useEffect(() => {
     // axios.get("http://localhost:8080/api/test-api").then(data => {
     //   console.log(">> check data axios :", data)
@@ -48,6 +79,7 @@ const Register = (props) => {
                 placeholder="Email address"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                required
               />
             </div>
             <div className="form-group">
@@ -58,6 +90,7 @@ const Register = (props) => {
                 placeholder="Phone number"
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
+                required
               />
             </div>
             <div className="form-group">
@@ -97,7 +130,7 @@ const Register = (props) => {
               Register
             </button>
             <hr></hr>
-            <div className="text-center" onClick={() => handleLogin()}>
+            <div className="text-center" type="submit" onClick={() => handleLogin()}>
               <button className="btn btn-success">
                 Already have an account. Login
               </button>

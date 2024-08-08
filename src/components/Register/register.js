@@ -23,19 +23,6 @@ const Register = (props) => {
   const handleLogin = () => {
     history.push("/login");
   };
-
-  const handleRegister = () => {
-
-    let check = isValid();
-    if (check === true) {
-      axios.post("http://localhost:8080/api/v1/register", {
-        email, phone, username, password
-      })
-
-    }
-
-  };
-
   const isValid = () => {
     setObjCheckInput(defaultValidInput)
     if (!email) {
@@ -70,6 +57,19 @@ const Register = (props) => {
 
     return true;
   }
+  const handleRegister = () => {
+
+    let check = isValid();
+    if (check === true) {
+      axios.post("http://localhost:8080/api/v1/register", {
+        email, phone, username, password
+      })
+
+    }
+
+  };
+
+
 
   useEffect(() => {
     // axios.get("http://localhost:8080/api/v1/test-api").then(data => {
